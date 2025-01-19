@@ -8,7 +8,7 @@ public class ActThrow : ActBaseAttack
 
 	public override bool CanPressRepeat => true;
 
-	public override TargetType TargetType => TargetType.Ground;
+	public override TargetType TargetTy pe => TargetType.Ground;
 
 	public override int PerformDistance => 99;
 
@@ -148,161 +148,161 @@ public class ActThrow : ActBaseAttack
 		bool flag2 = method == ThrowMethod.Default;
 		switch (t.trait.ThrowType)
 		{
-		case ThrowType.Explosive:
-			flag = true;
-			t.c_uidRefCard = c.uid;
-			t.Die(null, c, AttackSource.Throw);
-			break;
-		case ThrowType.Vase:
-			t.Die(null, null, AttackSource.Throw);
-			break;
-		case ThrowType.Potion:
-			flag = true;
-			if (Act.TC != null)
-			{
-				Act.TC.Say("throw_hit", t, Act.TC);
-			}
-			Act.TP.ModFire(-50, extinguish: true);
-			if (Act.TC != null && Act.TC.isChara)
-			{
-				if (t.trait.CanDrink(Act.TC.Chara))
+			case ThrowType.Explosive:
+				flag = true;
+				t.c_uidRefCard = c.uid;
+				t.Die(null, c, AttackSource.Throw);
+				break;
+			case ThrowType.Vase:
+				t.Die(null, null, AttackSource.Throw);
+				break;
+			case ThrowType.Potion:
+				flag = true;
+				if (Act.TC != null)
 				{
-					t.trait.OnDrink(Act.TC.Chara);
+					Act.TC.Say("throw_hit", t, Act.TC);
 				}
-				flag2 = t.IsNegativeGift;
-				Act.TC.Chara.AddCondition<ConWet>();
-			}
-			else
-			{
-				t.trait.OnThrowGround(c.Chara, Act.TP);
-			}
-			t.Die(null, null, AttackSource.Throw);
-			c.ModExp(108, 50);
-			break;
-		case ThrowType.Snow:
-			flag = true;
-			flag2 = false;
-			if (Act.TC != null && Act.TC.isChara)
-			{
-				Act.TC.Say("throw_hit", t, Act.TC);
-				if (EClass.rnd(2) == 0)
+				Act.TP.ModFire(-50, extinguish: true);
+				if (Act.TC != null && Act.TC.isChara)
 				{
-					c.Talk("snow_hit");
+					if (t.trait.CanDrink(Act.TC.Chara))
+					{
+						t.trait.OnDrink(Act.TC.Chara);
+					}
+					flag2 = t.IsNegativeGift;
+					Act.TC.Chara.AddCondition<ConWet>();
 				}
-				Act.TC.Chara.AddCondition<ConWet>(50);
+				else
+				{
+					t.trait.OnThrowGround(c.Chara, Act.TP);
+				}
 				t.Die(null, null, AttackSource.Throw);
 				c.ModExp(108, 50);
-			}
-			break;
-		case ThrowType.Ball:
-			flag = true;
-			flag2 = false;
-			if (Act.TC != null && Act.TC.isChara)
-			{
-				Act.TC.Say("throw_hit", t, Act.TC);
-				if (EClass.rnd(2) == 0)
+				break;
+			case ThrowType.Snow:
+				flag = true;
+				flag2 = false;
+				if (Act.TC != null && Act.TC.isChara)
 				{
-					c.Talk("snow_hit");
+					Act.TC.Say("throw_hit", t, Act.TC);
+					if (EClass.rnd(2) == 0)
+					{
+						c.Talk("snow_hit");
+					}
+					Act.TC.Chara.AddCondition<ConWet>(50);
+					t.Die(null, null, AttackSource.Throw);
+					c.ModExp(108, 50);
 				}
-				Act.TC.Say("ball_hit");
-				Act.TC.Chara?.Pick(t);
-				c.ModExp(108, 50);
-			}
-			break;
-		case ThrowType.Flyer:
-			flag = true;
-			flag2 = false;
-			if (Act.TC != null && Act.TC.isChara && c.isChara)
-			{
-				Act.TC.Say("throw_hit", t, Act.TC);
-				c.Chara.GiveGift(Act.TC.Chara, t);
-				c.ModExp(108, 50);
-			}
-			break;
-		case ThrowType.MonsterBall:
-		{
-			flag = true;
-			flag2 = false;
-			TraitMonsterBall traitMonsterBall = t.trait as TraitMonsterBall;
-			if (traitMonsterBall.chara != null)
-			{
-				if (traitMonsterBall.IsLittleBall && !(EClass._zone is Zone_LittleGarden))
+				break;
+			case ThrowType.Ball:
+				flag = true;
+				flag2 = false;
+				if (Act.TC != null && Act.TC.isChara)
 				{
+					Act.TC.Say("throw_hit", t, Act.TC);
+					if (EClass.rnd(2) == 0)
+					{
+						c.Talk("snow_hit");
+					}
+					Act.TC.Say("ball_hit");
+					Act.TC.Chara?.Pick(t);
+					c.ModExp(108, 50);
+				}
+				break;
+			case ThrowType.Flyer:
+				flag = true;
+				flag2 = false;
+				if (Act.TC != null && Act.TC.isChara && c.isChara)
+				{
+					Act.TC.Say("throw_hit", t, Act.TC);
+					c.Chara.GiveGift(Act.TC.Chara, t);
+					c.ModExp(108, 50);
+				}
+				break;
+			case ThrowType.MonsterBall:
+				{
+					flag = true;
+					flag2 = false;
+					TraitMonsterBall traitMonsterBall = t.trait as TraitMonsterBall;
+					if (traitMonsterBall.chara != null)
+					{
+						if (traitMonsterBall.IsLittleBall && !(EClass._zone is Zone_LittleGarden))
+						{
+							break;
+						}
+						Chara _c = EClass._zone.AddCard(traitMonsterBall.chara, p).Chara;
+						_c.PlayEffect("identify");
+						t.Die();
+						if (traitMonsterBall.IsLittleBall && _c.id == "littleOne")
+						{
+							_c.orgPos = c.pos.Copy();
+							Chara chara = _c;
+							Hostility c_originalHostility = (_c.hostility = Hostility.Neutral);
+							chara.c_originalHostility = c_originalHostility;
+							EClass._zone.ModInfluence(5);
+							_c.PlaySound("chime_angel");
+							EClass.core.actionsNextFrame.Add(delegate
+							{
+								_c.Talk("little_saved");
+							});
+							EClass.player.flags.little_saved = true;
+							EClass.player.little_saved++;
+						}
+						else
+						{
+							_c.MakeAlly();
+						}
+					}
+					else
+					{
+						if (Act.TC == null || !Act.TC.isChara)
+						{
+							break;
+						}
+						Act.TC.Say("throw_hit", t, Act.TC);
+						Chara chara2 = Act.TC.Chara;
+						if (traitMonsterBall.IsLittleBall)
+						{
+							if (chara2.id != "littleOne" || EClass._zone is Zone_LittleGarden || EClass._zone.IsUserZone)
+							{
+								Msg.Say("monsterball_invalid");
+								break;
+							}
+						}
+						else
+						{
+							if (!chara2.trait.CanBeTamed || EClass._zone.IsUserZone)
+							{
+								Msg.Say("monsterball_invalid");
+								break;
+							}
+							if (chara2.LV > traitMonsterBall.owner.LV)
+							{
+								Msg.Say("monsterball_lv");
+								break;
+							}
+							if (!EClass.debug.enable && chara2.hp > chara2.MaxHP / 10)
+							{
+								Msg.Say("monsterball_hp");
+								break;
+							}
+						}
+						Msg.Say("monsterball_capture", c, chara2);
+						chara2.PlaySound("identify");
+						chara2.PlayEffect("identify");
+						t.ChangeMaterial("copper");
+						if (chara2.IsLocalChara)
+						{
+							Debug.Log("Creating Replacement NPC for:" + chara2);
+							EClass._map.deadCharas.Add(chara2.CreateReplacement());
+						}
+						traitMonsterBall.chara = chara2;
+						EClass._zone.RemoveCard(chara2);
+						chara2.homeZone = null;
+						c.ModExp(108, 100);
+					}
 					break;
 				}
-				Chara _c = EClass._zone.AddCard(traitMonsterBall.chara, p).Chara;
-				_c.PlayEffect("identify");
-				t.Die();
-				if (traitMonsterBall.IsLittleBall && _c.id == "littleOne")
-				{
-					_c.orgPos = c.pos.Copy();
-					Chara chara = _c;
-					Hostility c_originalHostility = (_c.hostility = Hostility.Neutral);
-					chara.c_originalHostility = c_originalHostility;
-					EClass._zone.ModInfluence(5);
-					_c.PlaySound("chime_angel");
-					EClass.core.actionsNextFrame.Add(delegate
-					{
-						_c.Talk("little_saved");
-					});
-					EClass.player.flags.little_saved = true;
-					EClass.player.little_saved++;
-				}
-				else
-				{
-					_c.MakeAlly();
-				}
-			}
-			else
-			{
-				if (Act.TC == null || !Act.TC.isChara)
-				{
-					break;
-				}
-				Act.TC.Say("throw_hit", t, Act.TC);
-				Chara chara2 = Act.TC.Chara;
-				if (traitMonsterBall.IsLittleBall)
-				{
-					if (chara2.id != "littleOne" || EClass._zone is Zone_LittleGarden || EClass._zone.IsUserZone)
-					{
-						Msg.Say("monsterball_invalid");
-						break;
-					}
-				}
-				else
-				{
-					if (!chara2.trait.CanBeTamed || EClass._zone.IsUserZone)
-					{
-						Msg.Say("monsterball_invalid");
-						break;
-					}
-					if (chara2.LV > traitMonsterBall.owner.LV)
-					{
-						Msg.Say("monsterball_lv");
-						break;
-					}
-					if (!EClass.debug.enable && chara2.hp > chara2.MaxHP / 10)
-					{
-						Msg.Say("monsterball_hp");
-						break;
-					}
-				}
-				Msg.Say("monsterball_capture", c, chara2);
-				chara2.PlaySound("identify");
-				chara2.PlayEffect("identify");
-				t.ChangeMaterial("copper");
-				if (chara2.IsLocalChara)
-				{
-					Debug.Log("Creating Replacement NPC for:" + chara2);
-					EClass._map.deadCharas.Add(chara2.CreateReplacement());
-				}
-				traitMonsterBall.chara = chara2;
-				EClass._zone.RemoveCard(chara2);
-				chara2.homeZone = null;
-				c.ModExp(108, 100);
-			}
-			break;
-		}
 		}
 		if (t.trait is TraitDye)
 		{

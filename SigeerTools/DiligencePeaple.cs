@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-
-[HarmonyPatch]
+﻿[HarmonyPatch]
 public class DiligencePeaple {
 	[HarmonyPostfix, HarmonyPatch(typeof(Chara), nameof(Chara.RerollHobby))]
 	public static void RerollHobby(Chara __instance) {
