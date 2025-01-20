@@ -346,13 +346,13 @@ public class CoreDebug : EScriptable
 		}
 		switch (startScene)
 		{
-		case StartScene.Zone:
-		case StartScene.Home:
-			EClass.game.world.date.hour = EClass.debug.startHour;
-			break;
-		case StartScene.Home_Cave:
-			EClass.game.idPrologue = 2;
-			break;
+			case StartScene.Zone:
+			case StartScene.Home:
+				EClass.game.world.date.hour = EClass.debug.startHour;
+				break;
+			case StartScene.Home_Cave:
+				EClass.game.idPrologue = 2;
+				break;
 		}
 		EClass.game.StartNewGame();
 		EClass.player.flags.OnEnableDebug();
@@ -360,13 +360,13 @@ public class CoreDebug : EScriptable
 		Zone homeZone = EClass.game.spatials.Find(EClass.game.Prologue.idStartZone);
 		switch (startParty)
 		{
-		case StartParty.Farris:
-			AddParty("farris");
-			break;
-		case StartParty.Full:
-			AddParty("farris");
-			AddParty("wescott");
-			break;
+			case StartParty.Farris:
+				AddParty("farris");
+				break;
+			case StartParty.Full:
+				AddParty("farris");
+				AddParty("wescott");
+				break;
 		}
 		int lv = startSetting.lv;
 		if (allAbility)
@@ -398,203 +398,203 @@ public class CoreDebug : EScriptable
 		int idx = 0;
 		switch (startLoadout)
 		{
-		case StartLoadout.AllItem:
-			EClass.pc.ModCurrency(50, "plat");
-			EClass.pc.ModCurrency(50, "money2");
-			EClass.pc.EQ_CAT("weapon");
-			EClass.pc.EQ_CAT((EScriptable.rnd(2) == 0) ? "weapon" : "shield");
-			EClass.pc.EQ_CAT("torso");
-			EClass.pc.EQ_CAT("arm");
-			EClass.pc.EQ_CAT("ring");
-			EClass.pc.AddCard(ThingGen.Create("chest2"));
-			EClass.pc.AddCard(ThingGen.Create("torch_held"));
-			AddHotbar("axe");
-			AddHotbar("pickaxe");
-			AddHotbar("wateringCan");
-			AddHotbar("bow");
-			AddHotbar("deed");
-			AddAbility("SpellTeleport");
-			AddAbility("SpellCatsEye");
-			AddHotbar("map_big");
-			break;
-		case StartLoadout.FewItem:
-		{
-			Thing thing = ThingGen.Create("backpack");
-			thing.AddCard(ThingGen.Create("rp_food", -1, 10).SetNum(30));
-			thing.AddCard(ThingGen.Create("rp_block", -1, 10).SetNum(30));
-			for (int i = 0; i < 30; i++)
-			{
-				thing.AddCard(ThingGen.Create("rp_block", -1, 50));
-			}
-			EClass.pc.AddCard(thing);
-			thing = ThingGen.Create("pouch");
-			for (int j = 0; j < 30; j++)
-			{
-				CardBlueprint.Set(CardBlueprint.DebugEQ);
-				Thing thing2 = ThingGen.CreateFromCategory("weapon", EClass.pc.LV);
-				thing2.elements.SetBase(653, 1);
-				if (!(thing2.trait is TraitAmmo))
+			case StartLoadout.AllItem:
+				EClass.pc.ModCurrency(50, "plat");
+				EClass.pc.ModCurrency(50, "money2");
+				EClass.pc.EQ_CAT("weapon");
+				EClass.pc.EQ_CAT((EScriptable.rnd(2) == 0) ? "weapon" : "shield");
+				EClass.pc.EQ_CAT("torso");
+				EClass.pc.EQ_CAT("arm");
+				EClass.pc.EQ_CAT("ring");
+				EClass.pc.AddCard(ThingGen.Create("chest2"));
+				EClass.pc.AddCard(ThingGen.Create("torch_held"));
+				AddHotbar("axe");
+				AddHotbar("pickaxe");
+				AddHotbar("wateringCan");
+				AddHotbar("bow");
+				AddHotbar("deed");
+				AddAbility("SpellTeleport");
+				AddAbility("SpellCatsEye");
+				AddHotbar("map_big");
+				break;
+			case StartLoadout.FewItem:
 				{
-					thing.AddCard(thing2);
+					Thing thing = ThingGen.Create("backpack");
+					thing.AddCard(ThingGen.Create("rp_food", -1, 10).SetNum(30));
+					thing.AddCard(ThingGen.Create("rp_block", -1, 10).SetNum(30));
+					for (int i = 0; i < 30; i++)
+					{
+						thing.AddCard(ThingGen.Create("rp_block", -1, 50));
+					}
+					EClass.pc.AddCard(thing);
+					thing = ThingGen.Create("pouch");
+					for (int j = 0; j < 30; j++)
+					{
+						CardBlueprint.Set(CardBlueprint.DebugEQ);
+						Thing thing2 = ThingGen.CreateFromCategory("weapon", EClass.pc.LV);
+						thing2.elements.SetBase(653, 1);
+						if (!(thing2.trait is TraitAmmo))
+						{
+							thing.AddCard(thing2);
+						}
+						thing2 = ThingGen.CreateFromCategory("armor", EClass.pc.LV);
+						thing2.elements.SetBase(653, 1);
+						thing.AddCard(thing2);
+					}
+					EClass.pc.AddCard(thing);
+					thing = ThingGen.Create("pouch");
+					for (int k = 0; k < 30; k++)
+					{
+						thing.AddCard(ThingGen.Create("mathammer", MATERIAL.GetRandomMaterial(100).alias));
+					}
+					EClass.pc.AddCard(thing);
+					thing = ThingGen.Create("pouch");
+					for (int l = 0; l < 30; l++)
+					{
+						thing.AddCard(ThingGen.CreateFromCategory("ammo", EClass.pc.LV));
+					}
+					EClass.pc.AddCard(thing);
+					thing = ThingGen.Create("coolerbox");
+					for (int m = 0; m < 20; m++)
+					{
+						thing.AddCard(ThingGen.CreateFromCategory("foodstuff").SetNum(EScriptable.rnd(10) + 1));
+					}
+					EClass.pc.AddCard(thing);
+					List<SourceChara.Row> list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara").ToList();
+					thing = ThingGen.Create("pouch");
+					list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara_L").ToList();
+					for (int n = 0; n < 20; n++)
+					{
+						string id2 = list.RandomItem().id;
+						Thing thing3 = ThingGen.Create("figure");
+						thing3.MakeFigureFrom(id2);
+						thing.AddCard(thing3);
+					}
+					EClass.pc.AddCard(thing);
+					thing = ThingGen.Create("pouch");
+					list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara").ToList();
+					for (int num = 0; num < 20; num++)
+					{
+						string id3 = list.RandomItem().id;
+						Thing thing4 = ThingGen.Create("figure3");
+						thing4.MakeFigureFrom(id3);
+						thing.AddCard(thing4);
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("oak");
+					thing = ThingGen.Create("pouch");
+					list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara_L").ToList();
+					for (int num2 = 0; num2 < 20; num2++)
+					{
+						string id4 = list.RandomItem().id;
+						Thing thing5 = ThingGen.Create("figure3");
+						thing5.MakeFigureFrom(id4);
+						thing.AddCard(thing5);
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("pine");
+					thing = ThingGen.Create("pouch");
+					thing.AddCard(ThingGen.Create("flour").SetNum(10));
+					thing.AddCard(ThingGen.Create("wheat").SetNum(200));
+					thing.AddCard(ThingGen.Create("rice_plant").SetNum(200));
+					thing.AddCard(ThingGen.Create("noodle").SetNum(10));
+					thing.AddCard(ThingGen.Create("rice").SetNum(10));
+					thing.AddCard(ThingGen.Create("dough_cake").SetNum(10));
+					thing.AddCard(ThingGen.Create("dough_bread").SetNum(10));
+					thing.AddCard(ThingGen.Create("salt").SetNum(10));
+					thing.AddCard(ThingGen.Create("sugar").SetNum(10));
+					thing.AddCard(ThingGen.Create("honey").SetNum(10));
+					thing.AddCard(ThingGen.Create("yeast").SetNum(10));
+					thing.AddCard(ThingGen.Create("ketchup").SetNum(10));
+					thing.AddCard(ThingGen.Create("butter").SetNum(10));
+					thing.AddCard(ThingGen.Create("potion_empty").SetNum(10));
+					thing.AddCard(ThingGen.Create("bucket_empty").SetNum(10));
+					thing.AddCard(ThingGen.Create("battery"));
+					EClass.pc.AddCard(thing);
+					thing.Dye("saphire");
+					thing = ThingGen.Create("pouch");
+					thing.AddCard(ThingGen.Create("log").SetNum(99));
+					thing.AddCard(ThingGen.Create("log").SetNum(99).ChangeMaterial("pine"));
+					thing.AddCard(ThingGen.Create("ore").SetNum(99).ChangeMaterial("steel"));
+					thing.AddCard(ThingGen.Create("ore").SetNum(99).ChangeMaterial("copper"));
+					thing.AddCard(ThingGen.Create("ore_gem").SetNum(99).ChangeMaterial("gold"));
+					thing.AddCard(ThingGen.Create("gem").SetNum(99).ChangeMaterial("rubinus"));
+					thing.AddCard(ThingGen.Create("flower_white").SetNum(99));
+					thing.AddCard(ThingGen.Create("bait").SetNum(10));
+					thing.AddCard(ThingGen.Create("seed").SetNum(99));
+					EClass.pc.AddCard(thing);
+					thing.Dye("rubinus");
+					Thing thing6 = ThingGen.Create("quiver");
+					thing6.AddCard(ThingGen.Create("bullet").SetNum(250));
+					thing6.AddCard(ThingGen.Create("arrow").SetNum(250));
+					thing6.AddCard(ThingGen.Create("bolt").SetNum(250));
+					thing6.AddCard(ThingGen.Create("bullet_energy").SetNum(250));
+					EClass.pc.body.GetEquippedThing(44).AddCard(thing6);
+					thing = ThingGen.Create("backpack");
+					for (int num3 = 0; num3 < 10; num3++)
+					{
+						thing.AddThing("book", lv);
+						thing.AddThing("parchment");
+						thing.AddThing("book_ancient");
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("rubinus");
+					thing = ThingGen.Create("pouch");
+					for (int num4 = 0; num4 < 30; num4++)
+					{
+						thing.AddThing((EScriptable.rnd(10) != 0) ? "potion" : "drink", lv).SetNum(99);
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("steel");
+					thing = ThingGen.Create("pouch");
+					for (int num5 = 0; num5 < 30; num5++)
+					{
+						thing.AddThing(ThingGen.CreateFromCategory("rod", lv));
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("steel");
+					thing = ThingGen.Create("pouch");
+					for (int num6 = 0; num6 < 30; num6++)
+					{
+						thing.AddThing("scroll", lv).SetNum(99);
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("steel");
+					thing = ThingGen.Create("pouch");
+					for (int num7 = 0; num7 < 40; num7++)
+					{
+						thing.AddThing("372", 100);
+					}
+					EClass.pc.AddCard(thing);
+					thing.Dye("steel");
+					Thing thing7 = EClass.pc.things.Find("purse");
+					thing7.AddThing("casino_coin").SetNum(30000000);
+					thing7.AddThing("medal").SetNum(1000);
+					thing7.ModCurrency(500, "plat");
+					EClass.pc.AddThing("record");
+					EClass.pc.AddThing("deed").SetNum(5);
+					EClass.pc.AddThing("book_story");
+					EClass.pc.AddThing("book_tutorial");
+					EClass.pc.AddThing("water").SetNum(20).SetBlessedState(BlessedState.Blessed);
+					EClass.pc.AddThing("water").SetNum(20).SetBlessedState(BlessedState.Cursed);
+					EClass.pc.AddThing("potion_empty").SetNum(20);
+					EClass.pc.ModCurrency(10000000);
+					EClass.pc.AddCard(ThingGen.CreateBlock(67, 1).SetNum(99));
+					EClass.pc.AddCard(ThingGen.CreateFloor(41, 1).SetNum(99));
+					Thing thing8 = ThingGen.Create("scroll_random").SetNum(10);
+					thing8.refVal = 8220;
+					EClass.pc.AddCard(thing8);
+					EClass.pc.ModCurrency(50, "money2");
+					AddHotbar("hoe");
+					AddHotbar("shovel");
+					AddHotbar("axe");
+					AddHotbar("pickaxe");
+					AddHotbar("wateringCan");
+					AddHotbar("gun_assault");
+					AddHotbar("hammer");
+					AddHotbar("bow");
+					break;
 				}
-				thing2 = ThingGen.CreateFromCategory("armor", EClass.pc.LV);
-				thing2.elements.SetBase(653, 1);
-				thing.AddCard(thing2);
-			}
-			EClass.pc.AddCard(thing);
-			thing = ThingGen.Create("pouch");
-			for (int k = 0; k < 30; k++)
-			{
-				thing.AddCard(ThingGen.Create("mathammer", MATERIAL.GetRandomMaterial(100).alias));
-			}
-			EClass.pc.AddCard(thing);
-			thing = ThingGen.Create("pouch");
-			for (int l = 0; l < 30; l++)
-			{
-				thing.AddCard(ThingGen.CreateFromCategory("ammo", EClass.pc.LV));
-			}
-			EClass.pc.AddCard(thing);
-			thing = ThingGen.Create("coolerbox");
-			for (int m = 0; m < 20; m++)
-			{
-				thing.AddCard(ThingGen.CreateFromCategory("foodstuff").SetNum(EScriptable.rnd(10) + 1));
-			}
-			EClass.pc.AddCard(thing);
-			List<SourceChara.Row> list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara").ToList();
-			thing = ThingGen.Create("pouch");
-			list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara_L").ToList();
-			for (int n = 0; n < 20; n++)
-			{
-				string id2 = list.RandomItem().id;
-				Thing thing3 = ThingGen.Create("figure");
-				thing3.MakeFigureFrom(id2);
-				thing.AddCard(thing3);
-			}
-			EClass.pc.AddCard(thing);
-			thing = ThingGen.Create("pouch");
-			list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara").ToList();
-			for (int num = 0; num < 20; num++)
-			{
-				string id3 = list.RandomItem().id;
-				Thing thing4 = ThingGen.Create("figure3");
-				thing4.MakeFigureFrom(id3);
-				thing.AddCard(thing4);
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("oak");
-			thing = ThingGen.Create("pouch");
-			list = EClass.sources.charas.map.Values.Where((SourceChara.Row a) => a._idRenderData == "chara_L").ToList();
-			for (int num2 = 0; num2 < 20; num2++)
-			{
-				string id4 = list.RandomItem().id;
-				Thing thing5 = ThingGen.Create("figure3");
-				thing5.MakeFigureFrom(id4);
-				thing.AddCard(thing5);
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("pine");
-			thing = ThingGen.Create("pouch");
-			thing.AddCard(ThingGen.Create("flour").SetNum(10));
-			thing.AddCard(ThingGen.Create("wheat").SetNum(200));
-			thing.AddCard(ThingGen.Create("rice_plant").SetNum(200));
-			thing.AddCard(ThingGen.Create("noodle").SetNum(10));
-			thing.AddCard(ThingGen.Create("rice").SetNum(10));
-			thing.AddCard(ThingGen.Create("dough_cake").SetNum(10));
-			thing.AddCard(ThingGen.Create("dough_bread").SetNum(10));
-			thing.AddCard(ThingGen.Create("salt").SetNum(10));
-			thing.AddCard(ThingGen.Create("sugar").SetNum(10));
-			thing.AddCard(ThingGen.Create("honey").SetNum(10));
-			thing.AddCard(ThingGen.Create("yeast").SetNum(10));
-			thing.AddCard(ThingGen.Create("ketchup").SetNum(10));
-			thing.AddCard(ThingGen.Create("butter").SetNum(10));
-			thing.AddCard(ThingGen.Create("potion_empty").SetNum(10));
-			thing.AddCard(ThingGen.Create("bucket_empty").SetNum(10));
-			thing.AddCard(ThingGen.Create("battery"));
-			EClass.pc.AddCard(thing);
-			thing.Dye("saphire");
-			thing = ThingGen.Create("pouch");
-			thing.AddCard(ThingGen.Create("log").SetNum(99));
-			thing.AddCard(ThingGen.Create("log").SetNum(99).ChangeMaterial("pine"));
-			thing.AddCard(ThingGen.Create("ore").SetNum(99).ChangeMaterial("steel"));
-			thing.AddCard(ThingGen.Create("ore").SetNum(99).ChangeMaterial("copper"));
-			thing.AddCard(ThingGen.Create("ore_gem").SetNum(99).ChangeMaterial("gold"));
-			thing.AddCard(ThingGen.Create("gem").SetNum(99).ChangeMaterial("rubinus"));
-			thing.AddCard(ThingGen.Create("flower_white").SetNum(99));
-			thing.AddCard(ThingGen.Create("bait").SetNum(10));
-			thing.AddCard(ThingGen.Create("seed").SetNum(99));
-			EClass.pc.AddCard(thing);
-			thing.Dye("rubinus");
-			Thing thing6 = ThingGen.Create("quiver");
-			thing6.AddCard(ThingGen.Create("bullet").SetNum(250));
-			thing6.AddCard(ThingGen.Create("arrow").SetNum(250));
-			thing6.AddCard(ThingGen.Create("bolt").SetNum(250));
-			thing6.AddCard(ThingGen.Create("bullet_energy").SetNum(250));
-			EClass.pc.body.GetEquippedThing(44).AddCard(thing6);
-			thing = ThingGen.Create("backpack");
-			for (int num3 = 0; num3 < 10; num3++)
-			{
-				thing.AddThing("book", lv);
-				thing.AddThing("parchment");
-				thing.AddThing("book_ancient");
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("rubinus");
-			thing = ThingGen.Create("pouch");
-			for (int num4 = 0; num4 < 30; num4++)
-			{
-				thing.AddThing((EScriptable.rnd(10) != 0) ? "potion" : "drink", lv).SetNum(99);
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("steel");
-			thing = ThingGen.Create("pouch");
-			for (int num5 = 0; num5 < 30; num5++)
-			{
-				thing.AddThing(ThingGen.CreateFromCategory("rod", lv));
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("steel");
-			thing = ThingGen.Create("pouch");
-			for (int num6 = 0; num6 < 30; num6++)
-			{
-				thing.AddThing("scroll", lv).SetNum(99);
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("steel");
-			thing = ThingGen.Create("pouch");
-			for (int num7 = 0; num7 < 40; num7++)
-			{
-				thing.AddThing("372", 100);
-			}
-			EClass.pc.AddCard(thing);
-			thing.Dye("steel");
-			Thing thing7 = EClass.pc.things.Find("purse");
-			thing7.AddThing("casino_coin").SetNum(30000000);
-			thing7.AddThing("medal").SetNum(1000);
-			thing7.ModCurrency(500, "plat");
-			EClass.pc.AddThing("record");
-			EClass.pc.AddThing("deed").SetNum(5);
-			EClass.pc.AddThing("book_story");
-			EClass.pc.AddThing("book_tutorial");
-			EClass.pc.AddThing("water").SetNum(20).SetBlessedState(BlessedState.Blessed);
-			EClass.pc.AddThing("water").SetNum(20).SetBlessedState(BlessedState.Cursed);
-			EClass.pc.AddThing("potion_empty").SetNum(20);
-			EClass.pc.ModCurrency(10000000);
-			EClass.pc.AddCard(ThingGen.CreateBlock(67, 1).SetNum(99));
-			EClass.pc.AddCard(ThingGen.CreateFloor(41, 1).SetNum(99));
-			Thing thing8 = ThingGen.Create("scroll_random").SetNum(10);
-			thing8.refVal = 8220;
-			EClass.pc.AddCard(thing8);
-			EClass.pc.ModCurrency(50, "money2");
-			AddHotbar("hoe");
-			AddHotbar("shovel");
-			AddHotbar("axe");
-			AddHotbar("pickaxe");
-			AddHotbar("wateringCan");
-			AddHotbar("gun_assault");
-			AddHotbar("hammer");
-			AddHotbar("bow");
-			break;
-		}
 		}
 		EClass.pc.RestockEquip(onCreate: true);
 		EClass.pc.stamina.value = EClass.pc.stamina.max;
@@ -1023,18 +1023,18 @@ public class CoreDebug : EScriptable
 			{
 				switch (EScriptable.rnd(5))
 				{
-				case 0:
-					EClass.world.weather.SetCondition(Weather.Condition.Rain);
-					break;
-				case 1:
-					EClass.world.weather.SetCondition(Weather.Condition.Snow);
-					break;
-				case 2:
-					EClass.world.weather.SetCondition(Weather.Condition.Ether);
-					break;
-				default:
-					EClass.world.weather.SetCondition(Weather.Condition.Fine);
-					break;
+					case 0:
+						EClass.world.weather.SetCondition(Weather.Condition.Rain);
+						break;
+					case 1:
+						EClass.world.weather.SetCondition(Weather.Condition.Snow);
+						break;
+					case 2:
+						EClass.world.weather.SetCondition(Weather.Condition.Ether);
+						break;
+					default:
+						EClass.world.weather.SetCondition(Weather.Condition.Fine);
+						break;
 				}
 			}
 		}
@@ -1103,7 +1103,7 @@ public class CoreDebug : EScriptable
 			{
 				if (key)
 				{
-					EClass._map.charas.ForeachReverse(delegate(Chara c)
+					EClass._map.charas.ForeachReverse(delegate (Chara c)
 					{
 						if (c.IsHostile(EClass.pc))
 						{
@@ -1163,164 +1163,164 @@ public class CoreDebug : EScriptable
 		}
 		switch (debugHotkeys)
 		{
-		case DebugHotkey.Anime:
-		{
-			int num5 = -1;
-			if (Input.GetKeyDown(KeyCode.Alpha0))
-			{
-				num5 = 0;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				num5 = 1;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha2))
-			{
-				num5 = 2;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha3))
-			{
-				num5 = 3;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha4))
-			{
-				num5 = 4;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha5))
-			{
-				num5 = 5;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha6))
-			{
-				num5 = 6;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha7))
-			{
-				num5 = 7;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha8))
-			{
-				num5 = 8;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha9))
-			{
-				num5 = 9;
-			}
-			if (num5 == -1)
-			{
+			case DebugHotkey.Anime:
+				{
+					int num5 = -1;
+					if (Input.GetKeyDown(KeyCode.Alpha0))
+					{
+						num5 = 0;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha1))
+					{
+						num5 = 1;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha2))
+					{
+						num5 = 2;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha3))
+					{
+						num5 = 3;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha4))
+					{
+						num5 = 4;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha5))
+					{
+						num5 = 5;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha6))
+					{
+						num5 = 6;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha7))
+					{
+						num5 = 7;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha8))
+					{
+						num5 = 8;
+					}
+					if (Input.GetKeyDown(KeyCode.Alpha9))
+					{
+						num5 = 9;
+					}
+					if (num5 == -1)
+					{
+						break;
+					}
+					foreach (Card item3 in hitPoint.ListCards())
+					{
+						item3.renderer.PlayAnime(num5.ToEnum<AnimeID>());
+					}
+					Debug.Log(num5.ToEnum<AnimeID>());
+					break;
+				}
+			case DebugHotkey.Block:
+				if (Input.GetKeyDown(KeyCode.Alpha1))
+				{
+					EClass._map.SetLiquid(hitPoint.x, hitPoint.z, 1, 9);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha2))
+				{
+					EClass._map.SetLiquid(hitPoint.x, hitPoint.z, 2, 9);
+				}
 				break;
-			}
-			foreach (Card item3 in hitPoint.ListCards())
-			{
-				item3.renderer.PlayAnime(num5.ToEnum<AnimeID>());
-			}
-			Debug.Log(num5.ToEnum<AnimeID>());
-			break;
-		}
-		case DebugHotkey.Block:
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				EClass._map.SetLiquid(hitPoint.x, hitPoint.z, 1, 9);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha2))
-			{
-				EClass._map.SetLiquid(hitPoint.x, hitPoint.z, 2, 9);
-			}
-			break;
-		case DebugHotkey.Item:
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				Thing thing3 = ThingGen.Create("stairsDown_cave");
-				EClass._zone.AddCard(thing3, EClass.pc.pos);
-				thing3.SetPlaceState(PlaceState.installed);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha2))
-			{
-				Thing thing4 = ThingGen.Create("stairs");
-				EClass._zone.AddCard(thing4, EClass.pc.pos);
-				thing4.SetPlaceState(PlaceState.installed);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha3))
-			{
-				Thing thing5 = ThingGen.Create("sign");
-				EClass._zone.AddCard(thing5, hitPoint);
-				thing5.SetPlaceState(PlaceState.installed);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha4))
-			{
-				Thing thing6 = ThingGen.Create("sign2");
-				EClass._zone.AddCard(thing6, hitPoint);
-				thing6.SetPlaceState(PlaceState.installed);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha5))
-			{
-				Thing thing7 = ThingGen.Create("well");
-				EClass._zone.AddCard(thing7, hitPoint);
-				thing7.SetPlaceState(PlaceState.installed);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha6))
-			{
-				Thing thing8 = ThingGen.Create("altar");
-				EClass._zone.AddCard(thing8, hitPoint);
-				thing8.SetPlaceState(PlaceState.installed);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha7))
-			{
-				Thing t = ThingGen.Create("torch");
-				EClass._zone.AddCard(t, hitPoint);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha8))
-			{
-				Thing t2 = ThingGen.Create("street_lamp");
-				EClass._zone.AddCard(t2, hitPoint);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha9))
-			{
-				Thing t3 = ThingGen.Create("statue_elin");
-				EClass._zone.AddCard(t3, hitPoint);
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha0))
-			{
-				Thing t4 = ThingGen.TestCreate();
-				EClass._zone.AddCard(t4, hitPoint);
-			}
-			if (key && Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				Chara t5 = CharaGen.Create("korgon");
-				EClass._zone.AddCard(t5, hitPoint);
-			}
-			break;
-		case DebugHotkey.Decal:
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				EClass._map.AddDecal(hitPoint.x, hitPoint.z, EClass.pc.material.decal);
-			}
-			if (!Input.GetKeyDown(KeyCode.Alpha2))
-			{
-			}
-			break;
-		case DebugHotkey.Test:
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				QualitySettings.vSyncCount = 0;
-				Application.targetFrameRate = 60;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha2))
-			{
-				QualitySettings.vSyncCount = 0;
-				Application.targetFrameRate = 20;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha3))
-			{
-				QualitySettings.vSyncCount = 0;
-				Application.targetFrameRate = 30;
-			}
-			if (Input.GetKeyDown(KeyCode.Alpha4))
-			{
-				QualitySettings.vSyncCount = 0;
-				Application.targetFrameRate = 40;
-			}
-			break;
+			case DebugHotkey.Item:
+				if (Input.GetKeyDown(KeyCode.Alpha1))
+				{
+					Thing thing3 = ThingGen.Create("stairsDown_cave");
+					EClass._zone.AddCard(thing3, EClass.pc.pos);
+					thing3.SetPlaceState(PlaceState.installed);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha2))
+				{
+					Thing thing4 = ThingGen.Create("stairs");
+					EClass._zone.AddCard(thing4, EClass.pc.pos);
+					thing4.SetPlaceState(PlaceState.installed);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha3))
+				{
+					Thing thing5 = ThingGen.Create("sign");
+					EClass._zone.AddCard(thing5, hitPoint);
+					thing5.SetPlaceState(PlaceState.installed);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha4))
+				{
+					Thing thing6 = ThingGen.Create("sign2");
+					EClass._zone.AddCard(thing6, hitPoint);
+					thing6.SetPlaceState(PlaceState.installed);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha5))
+				{
+					Thing thing7 = ThingGen.Create("well");
+					EClass._zone.AddCard(thing7, hitPoint);
+					thing7.SetPlaceState(PlaceState.installed);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha6))
+				{
+					Thing thing8 = ThingGen.Create("altar");
+					EClass._zone.AddCard(thing8, hitPoint);
+					thing8.SetPlaceState(PlaceState.installed);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha7))
+				{
+					Thing t = ThingGen.Create("torch");
+					EClass._zone.AddCard(t, hitPoint);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha8))
+				{
+					Thing t2 = ThingGen.Create("street_lamp");
+					EClass._zone.AddCard(t2, hitPoint);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha9))
+				{
+					Thing t3 = ThingGen.Create("statue_elin");
+					EClass._zone.AddCard(t3, hitPoint);
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha0))
+				{
+					Thing t4 = ThingGen.TestCreate();
+					EClass._zone.AddCard(t4, hitPoint);
+				}
+				if (key && Input.GetKeyDown(KeyCode.Alpha1))
+				{
+					Chara t5 = CharaGen.Create("korgon");
+					EClass._zone.AddCard(t5, hitPoint);
+				}
+				break;
+			case DebugHotkey.Decal:
+				if (Input.GetKeyDown(KeyCode.Alpha1))
+				{
+					EClass._map.AddDecal(hitPoint.x, hitPoint.z, EClass.pc.material.decal);
+				}
+				if (!Input.GetKeyDown(KeyCode.Alpha2))
+				{
+				}
+				break;
+			case DebugHotkey.Test:
+				if (Input.GetKeyDown(KeyCode.Alpha1))
+				{
+					QualitySettings.vSyncCount = 0;
+					Application.targetFrameRate = 60;
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha2))
+				{
+					QualitySettings.vSyncCount = 0;
+					Application.targetFrameRate = 20;
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha3))
+				{
+					QualitySettings.vSyncCount = 0;
+					Application.targetFrameRate = 30;
+				}
+				if (Input.GetKeyDown(KeyCode.Alpha4))
+				{
+					QualitySettings.vSyncCount = 0;
+					Application.targetFrameRate = 40;
+				}
+				break;
 		}
 		Card card = (Card)(((object)hitPoint.FirstChara) ?? ((object)hitPoint.FirstThing));
 		if (card == null)
@@ -1406,24 +1406,24 @@ public class CoreDebug : EScriptable
 				{
 					switch (row2.type)
 					{
-					case 1:
-						if (!EClass.sources.things.map.ContainsKey(row2.loot))
-						{
-							Debug.Log(row2.id + "/remain/" + row2.Name + "/" + row2.loot);
-						}
-						break;
-					case 4:
-						if (!EClass.sources.charas.map.ContainsKey(row2.chara))
-						{
-							Debug.Log(row2.id + "/pet/" + row2.Name + "/" + row2.chara);
-						}
-						break;
-					case 6:
-						if (!EClass.sources.religions.map.ContainsKey(row2.deity.ToLower()))
-						{
-							Debug.Log(row2.id + "/" + row2.Name + "/follower/" + row2.deity);
-						}
-						break;
+						case 1:
+							if (!EClass.sources.things.map.ContainsKey(row2.loot))
+							{
+								Debug.Log(row2.id + "/remain/" + row2.Name + "/" + row2.loot);
+							}
+							break;
+						case 4:
+							if (!EClass.sources.charas.map.ContainsKey(row2.chara))
+							{
+								Debug.Log(row2.id + "/pet/" + row2.Name + "/" + row2.chara);
+							}
+							break;
+						case 6:
+							if (!EClass.sources.religions.map.ContainsKey(row2.deity.ToLower()))
+							{
+								Debug.Log(row2.id + "/" + row2.Name + "/follower/" + row2.deity);
+							}
+							break;
 					}
 				}
 			}
@@ -1546,7 +1546,7 @@ public class CoreDebug : EScriptable
 		});
 		Add(cat2, "Unreveal Map", delegate
 		{
-			EClass._map.ForeachCell(delegate(Cell c)
+			EClass._map.ForeachCell(delegate (Cell c)
 			{
 				c.isSeen = false;
 			});
@@ -1575,7 +1575,7 @@ public class CoreDebug : EScriptable
 		});
 		Add(cat2, "Reset All obj materials", delegate
 		{
-			EClass._map.ForeachCell(delegate(Cell c)
+			EClass._map.ForeachCell(delegate (Cell c)
 			{
 				if (c.HasObj)
 				{
@@ -1585,7 +1585,7 @@ public class CoreDebug : EScriptable
 		});
 		Add(cat2, "Fix Floors under Blocks", delegate
 		{
-			EClass._map.ForeachCell(delegate(Cell c)
+			EClass._map.ForeachCell(delegate (Cell c)
 			{
 				if (c.HasFullBlock)
 				{
@@ -1597,14 +1597,14 @@ public class CoreDebug : EScriptable
 		});
 		Add(cat2, "Bless Inventory", delegate
 		{
-			EClass.pc.things.Foreach(delegate(Thing t)
+			EClass.pc.things.Foreach(delegate (Thing t)
 			{
 				t.SetBlessedState(BlessedState.Blessed);
 			});
 		});
 		Add(cat2, "Curse Inventory", delegate
 		{
-			EClass.pc.things.Foreach(delegate(Thing t)
+			EClass.pc.things.Foreach(delegate (Thing t)
 			{
 				t.SetBlessedState(BlessedState.Cursed);
 			});
@@ -1649,7 +1649,7 @@ public class CoreDebug : EScriptable
 
 	public void Test_Grow()
 	{
-		EClass._map.ForeachCell(delegate(Cell c)
+		EClass._map.ForeachCell(delegate (Cell c)
 		{
 			if (c.sourceObj.HasGrowth)
 			{
@@ -1769,7 +1769,7 @@ public class CoreDebug : EScriptable
 		{
 			return "No Branch";
 		}
-		EClass.Branch.members.ForeachReverse(delegate(Chara c)
+		EClass.Branch.members.ForeachReverse(delegate (Chara c)
 		{
 			if ((c.id == "kettle" || c.id == "quru") && EClass.Branch.members.Where((Chara c2) => c2.id == c.id).Count() >= 2)
 			{

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ModName>ElinOSRSXP</ModName>
+    <ModName>offer_without_limit</ModName>
   </PropertyGroup>
   <Import Project="../SharedConfig.props" />
 </Project>

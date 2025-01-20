@@ -15,9 +15,10 @@
     <!-- derived paths -->
     <ManagedPath>$(GamePath)/Elin_Data/Managed</ManagedPath>
     <BepInExPath>$(GamePath)/BepInEx</BepInExPath>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
-   <ItemGroup>
+  <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>$(ManagedPath)/Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -34,14 +35,13 @@
       <HintPath>$(BepInExPath)/core/0Harmony.dll</HintPath>
     </Reference>
     <PackageReference Include="UnityEngine.Modules" Version="2021.3.34" IncludeAssets="compile" />
-    <Reference Include = "Plugins.UI">
+    <Reference Include="Plugins.UI">
       <HintPath>$(ManagedPath)/Plugins.UI.dll</HintPath>
     </Reference>
-    <Reference Include = "Plugins.BaseCore">
+    <Reference Include="Plugins.BaseCore">
       <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.BaseCore.dll</HintPath>
     </Reference>
-
-    <Reference Include = "UnityEngine">
+    <Reference Include="UnityEngine">
       <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -49,19 +49,18 @@
       <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-     <Reference Include = "Plugins.NameGen">
+    <Reference Include="Plugins.NameGen">
       <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.NameGen.dll</HintPath>
       <Private>False</Private>
     </Reference>
-
-        <Reference Include = "Reflex">
+    <Reference Include="Reflex">
       <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Reflex.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
 
-  <ItemGroup  Condition = "'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-    <PackageReference Include   = "Microsoft.NETFramework.ReferenceAssemblies" Version = "1.0.2" PrivateAssets = "all" />
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,25 +69,28 @@
     </Content>
   </ItemGroup>
 
-  <Target Name = "PostBuild" AfterTargets = "PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
       <ModFolder>$(GamePath)/Package/$(ModName)</ModFolder>
     </PropertyGroup>
-    
+
     <!-- Create the mod directory if it doesn't exist -->
-    <MakeDir Directories = "$(ModFolder)" />
-    
+    <MakeDir Directories="$(ModFolder)" />
+
     <!-- Copy the compiled DLL to the mod folder -->
     <Copy 
-      SourceFiles        = "$(TargetPath)"
-      DestinationFolder  = "$(ModFolder)"
-      SkipUnchangedFiles = "true"
+      SourceFiles="$(TargetPath)"
+      DestinationFolder="$(ModFolder)"
+      SkipUnchangedFiles="true"
     />
-    
+
+    <Copy 
+      SourceFiles="package.xml"
+      DestinationFolder="$(ModFolder)"
+      SkipUnchangedFiles="true"
+    />
+
     <!-- Optional: You can add a message to confirm the copy -->
-    <Message Text = "Copied $(TargetFileName) to $(ModFolder)" Importance = "high" />
+    <Message Text="Copied $(TargetFileName) to $(ModFolder)" Importance="high" />
   </Target>
-
-  <Import Project = "$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
 </Project>
