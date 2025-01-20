@@ -5,9 +5,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
-      https: //api.nuget.org/v3/index.json;
-      https: //nuget.bepinex.dev/v3/index.json;
-      https: //nuget.samboy.dev/v3/index.json
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+      https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
     <RootNamespace>$(ModName)</RootNamespace>
     <OutputType>Library</OutputType>
@@ -60,9 +60,14 @@
     </Reference>
   </ItemGroup>
 
-
   <ItemGroup  Condition = "'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include   = "Microsoft.NETFramework.ReferenceAssemblies" Version = "1.0.2" PrivateAssets = "all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="package.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <Target Name = "PostBuild" AfterTargets = "PostBuildEvent">
@@ -83,4 +88,7 @@
     <!-- Optional: You can add a message to confirm the copy -->
     <Message Text = "Copied $(TargetFileName) to $(ModFolder)" Importance = "high" />
   </Target>
+
+  <Import Project = "$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

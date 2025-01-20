@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Meta>
+	<title>ElinOSRSXP</title>
+	<id>ElinOSRSXP</id>
+	<author>Sigeer</author>
+	<loadPriority>1</loadPriority>
+	<description>
+		测试的mod
+	</description>
+	<tags>Cheat,Item</tags>
+	<version>0.23.46</version>
+</Meta>

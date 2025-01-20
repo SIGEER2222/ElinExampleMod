@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../SharedConfig.props" />
   <PropertyGroup>
     <ModName>ElinOSRSXP</ModName>
     <Description>ElinOSRSXP</Description>
     <Version>0.0.1</Version>
   </PropertyGroup>
+  <Import Project="../SharedConfig.props" />
 </Project>
