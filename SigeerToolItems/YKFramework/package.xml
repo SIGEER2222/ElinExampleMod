@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Meta>
+	<title>YKFramework</title>
+	<id>YKFramework</id>
+	<author>Sigeer</author>
+	<loadPriority>1</loadPriority>
+	<description>
+		用于显示获得的经验值
+	</description>
+	<tags>Cheat,Item</tags>
+	<version>1.0.0</version>
+</Meta>

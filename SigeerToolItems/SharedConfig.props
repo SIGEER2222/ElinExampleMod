@@ -30,7 +30,7 @@
 
   <!-- 外部 DLL 的引用 -->
   <ItemGroup>
-    <Reference Include="$(ElinPath)/Elin_Data/Managed/UnityEngine*.dll">
+    <Reference Include="$(ManagedPath)/UnityEngine*.dll">
       <Private>False</Private>
     </Reference>
     <Reference Include="$(ElinPath)/BepInEx/core/BepInEx*.dll">
@@ -39,12 +39,18 @@
     <Reference Include="$(ElinPath)/BepInEx/core/0Harmony.dll">
       <Private>False</Private>
     </Reference>
-    <Reference Include="$(ElinPath)/Elin_Data/Managed/Elin*.dll">
+    <Reference Include="$(ManagedPath)/Elin*.dll">
       <Private>False</Private>
     </Reference>
-    <Reference Include="$(ElinPath)/Elin_Data/Managed/Plugins*.dll">
+    <Reference Include="$(ManagedPath)/Plugins*.dll">
       <Private>False</Private>
     </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>$(ManagedPath)/com.rlabrecque.steamworks.net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+
   </ItemGroup>
 
   <!-- 额外的引用和包引用 -->

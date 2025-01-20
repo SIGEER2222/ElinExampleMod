@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GanExtendDisplay", "GanExte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeHelpfulMods", "SomeHelpfulMods\SomeHelpfulMods.csproj", "{2687FBD7-27A9-44B8-B6C6-4DDDDB5CAE3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YKDevTool", "YKDevTool\YKDevTool.csproj", "{7156D72B-F0A8-4E17-BBDF-F190DA599233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YKFramework", "YKFramework\YKFramework.csproj", "{78B4728D-7E45-4A71-B2D9-EC5B9092BB00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{2687FBD7-27A9-44B8-B6C6-4DDDDB5CAE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2687FBD7-27A9-44B8-B6C6-4DDDDB5CAE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2687FBD7-27A9-44B8-B6C6-4DDDDB5CAE3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7156D72B-F0A8-4E17-BBDF-F190DA599233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7156D72B-F0A8-4E17-BBDF-F190DA599233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7156D72B-F0A8-4E17-BBDF-F190DA599233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7156D72B-F0A8-4E17-BBDF-F190DA599233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B4728D-7E45-4A71-B2D9-EC5B9092BB00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B4728D-7E45-4A71-B2D9-EC5B9092BB00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B4728D-7E45-4A71-B2D9-EC5B9092BB00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B4728D-7E45-4A71-B2D9-EC5B9092BB00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
