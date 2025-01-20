@@ -1,4 +1,5 @@
 <Project>
+  <!-- 项目的框架信息 -->
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>$(ModName)</AssemblyName>
@@ -11,23 +12,24 @@
     </RestoreAdditionalProjectSources>
     <RootNamespace>$(ModName)</RootNamespace>
     <OutputType>Library</OutputType>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
 
+  <!-- Steam 和游戏目录的路径 -->
+  <PropertyGroup>
     <SteamPath>E:/Program Files (x86)/Steam</SteamPath>
     <ElinPath>$(SteamPath)/steamapps/common/Elin</ElinPath>
     <GamePath>$(ElinPath)</GamePath>
-    <!-- derived paths -->
     <ManagedPath>$(GamePath)/Elin_Data/Managed</ManagedPath>
     <BepInExPath>$(GamePath)/BepInEx</BepInExPath>
-    <Version>0.0.1</Version>
-
-
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Optimize>true</Optimize>
   </PropertyGroup>
 
-   <ItemGroup>
+  <!-- 外部 DLL 的引用 -->
+  <ItemGroup>
     <Reference Include="$(ElinPath)/Elin_Data/Managed/UnityEngine*.dll">
       <Private>False</Private>
     </Reference>
@@ -37,7 +39,7 @@
     <Reference Include="$(ElinPath)/BepInEx/core/0Harmony.dll">
       <Private>False</Private>
     </Reference>
-    <Reference Include="$(ElinPath)/Elin_Data/Managed/Elin.dll">
+    <Reference Include="$(ElinPath)/Elin_Data/Managed/Elin*.dll">
       <Private>False</Private>
     </Reference>
     <Reference Include="$(ElinPath)/Elin_Data/Managed/Plugins*.dll">
@@ -45,72 +47,44 @@
     </Reference>
   </ItemGroup>
 
+  <!-- 额外的引用和包引用 -->
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>$(ManagedPath)/Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Elin">
-      <HintPath>$(ManagedPath)/Elin.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx.Core">
-      <HintPath>$(BepInExPath)/core/BepInEx.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx.Unity">
-      <HintPath>$(BepInExPath)/core/BepInEx.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Harmony">
-      <HintPath>$(BepInExPath)/core/0Harmony.dll</HintPath>
-    </Reference>
     <PackageReference Include="UnityEngine.Modules" Version="2021.3.34" IncludeAssets="compile" />
-    <Reference Include="Plugins.UI">
-      <HintPath>$(ManagedPath)/Plugins.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugins.BaseCore">
-      <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.BaseCore.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Plugins.NameGen">
-      <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.NameGen.dll</HintPath>
+      <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Reflex">
-      <HintPath>D:\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Reflex.dll</HintPath>
+      <HintPath>$(ManagedPath)\Reflex.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
-  </ItemGroup>
-
+  <!-- 要包含在输出目录中的内容文件 -->
   <ItemGroup>
     <Content Include="package.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
+  <!-- 从 Base 目录引用的共享文件 -->
   <ItemGroup>
     <Compile Include="..\Base\**\*.cs">
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Compile>
   </ItemGroup>
 
+  <!-- 构建后的操作 -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
       <ModFolder>$(GamePath)/Package/$(ModName)</ModFolder>
     </PropertyGroup>
 
-    <!-- Create the mod directory if it doesn't exist -->
     <MakeDir Directories="$(ModFolder)" />
 
-    <!-- Copy the compiled DLL to the mod folder -->
     <Copy 
       SourceFiles="$(TargetPath)"
       DestinationFolder="$(ModFolder)"
@@ -123,7 +97,6 @@
       SkipUnchangedFiles="true"
     />
 
-    <!-- Optional: You can add a message to confirm the copy -->
     <Message Text="Copied $(TargetFileName) to $(ModFolder)" Importance="high" />
   </Target>
 </Project>

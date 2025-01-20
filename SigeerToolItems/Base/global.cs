@@ -8,4 +8,8 @@ global using System.Threading.Tasks;
 global using UnityEngine;
 global using BepInEx.Configuration;
 global using System.Collections.Concurrent;
+global using System.Reflection;
+global using System.Reflection.Emit;
+global using System.Text.RegularExpressions;
+
 

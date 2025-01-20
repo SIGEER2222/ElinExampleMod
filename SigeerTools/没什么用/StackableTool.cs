@@ -1,9 +1,13 @@
 ﻿[HarmonyPatch]
-public class StackableTool {
+public class StackableTool
+{
 	[HarmonyPrefix, HarmonyPatch(typeof(Card), nameof(Card.TryStackTo))]
-	public static bool TryStackTo(Card __instance, Thing to, ref bool __result) {
-		if (__instance.id == to.id && __instance.blessedState == to.blessedState) {
-			switch (__instance.id) {
+	public static bool TryStackTo(Card __instance, Thing to, ref bool __result)
+	{
+		if (__instance.id == to.id && __instance.blessedState == to.blessedState)
+		{
+			switch (__instance.id)
+			{
 				case "stethoscope":
 				case "lockpick":
 				case "blanket_fire":
