@@ -11,12 +11,39 @@
     </RestoreAdditionalProjectSources>
     <RootNamespace>$(ModName)</RootNamespace>
     <OutputType>Library</OutputType>
-    <GamePath>D:\SteamLibrary\steamapps\common\Elin</GamePath>
+
+    <SteamPath>E:/Program Files (x86)/Steam</SteamPath>
+    <ElinPath>$(SteamPath)/steamapps/common/Elin</ElinPath>
+    <GamePath>$(ElinPath)</GamePath>
     <!-- derived paths -->
     <ManagedPath>$(GamePath)/Elin_Data/Managed</ManagedPath>
     <BepInExPath>$(GamePath)/BepInEx</BepInExPath>
     <Version>0.0.1</Version>
+
+
   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+   <ItemGroup>
+    <Reference Include="$(ElinPath)/Elin_Data/Managed/UnityEngine*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ElinPath)/BepInEx/core/BepInEx*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ElinPath)/BepInEx/core/0Harmony.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ElinPath)/Elin_Data/Managed/Elin.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ElinPath)/Elin_Data/Managed/Plugins*.dll">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">

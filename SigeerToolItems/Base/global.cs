@@ -7,4 +7,5 @@ global using System.Text;
 global using System.Threading.Tasks;
 global using UnityEngine;
 global using BepInEx.Configuration;
+global using System.Collections.Concurrent;
 

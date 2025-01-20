@@ -1,7 +1,37 @@
-bin/
-obj/
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
 
-.DS_Store
-Thumbs.db
+# Other files and folders
+.settings/
 
-Directory.Build.props
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+
+/Logs/*.*
+*logs*
+.vs/MySolution/*
+.idea/*
+*/.vs/*
+.vs/*
+.fake
+DapperTest/BaiAn.db-shm
+DapperTest/BaiAn.db-wal
+**/Generated/**
+**/BaiAn.db-shm
+**/BaiAn.db-wal
+
+**/TestResults/**
+**/.cr/**
+**/nupkgs**
+
+**/Mark/**
