@@ -69,6 +69,12 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="..\Base\**\*.cs">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
       <ModFolder>$(GamePath)/Package/$(ModName)</ModFolder>
