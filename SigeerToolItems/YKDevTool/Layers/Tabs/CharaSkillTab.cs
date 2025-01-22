@@ -4,10 +4,8 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class CharaSkillTab : YKLayout<Chara>
-{
-    public override void OnLayout()
-    {
+public class CharaSkillTab : YKLayout<Chara> {
+    public override void OnLayout() {
         var chara = Layer.Data;
         var headerWidth = 120;
         Header(chara.GetName(NameStyle.Full));
@@ -27,8 +25,7 @@ public class CharaSkillTab : YKLayout<Chara>
             var dropdown = group.Dropdown(attributeList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, attributeList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -40,8 +37,7 @@ public class CharaSkillTab : YKLayout<Chara>
             var dropdown = group.Dropdown(skillList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, skillList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -49,13 +45,10 @@ public class CharaSkillTab : YKLayout<Chara>
         {
             var group = Horizontal();
             group.Layout.childForceExpandWidth = true;
-            group.Button("未取得のスキルをLv1で習得"._("Acquire an unacquired skill at Lv1"), () =>
-            {
-                foreach (var el in skillList)
-                {
+            group.Button("未取得のスキルをLv1で習得"._("Acquire an unacquired skill at Lv1"), () => {
+                foreach (var el in skillList) {
                     var element = chara.elements.GetOrCreateElement(el.id);
-                    if (element.ValueWithoutLink == 0)
-                    {
+                    if (element.ValueWithoutLink == 0) {
                         chara.elements.ModBase(el.id, 1);
                     }
                 }
@@ -67,8 +60,7 @@ public class CharaSkillTab : YKLayout<Chara>
             group.HeaderSmall("経験値"._("Exp")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(attrAndSkillList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var expInput = group.InputText("").WithPlaceholder("加算、減算"._("plus, minus"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 chara.ModExp(attrAndSkillList[dropdown.value].id, expInput.Num);
                 RefreshElementList();
             });
@@ -80,8 +72,7 @@ public class CharaSkillTab : YKLayout<Chara>
             var dropdown = group.Dropdown(featList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, featList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -93,8 +84,7 @@ public class CharaSkillTab : YKLayout<Chara>
             var dropdown = group.Dropdown(slotList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, slotList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -106,8 +96,7 @@ public class CharaSkillTab : YKLayout<Chara>
             var dropdown = group.Dropdown(mutationtList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, mutationtList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -119,8 +108,7 @@ public class CharaSkillTab : YKLayout<Chara>
             var dropdown = group.Dropdown(etherList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, etherList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -181,17 +169,13 @@ public class CharaSkillTab : YKLayout<Chara>
         }
     }
 
-    private void GainElement(Chara chara, SourceElement.Row el, int lv, int potential = 0)
-    {
-        if (lv == 0)
-        {
+    private void GainElement(Chara chara, SourceElement.Row el, int lv, int potential = 0) {
+        if (lv == 0) {
             chara.elements.Remove(el.id);
         }
-        else
-        {
+        else {
             var element = chara.elements.GetOrCreateElement(el.id);
-            if (element.ValueWithoutLink == 0)
-            {
+            if (element.ValueWithoutLink == 0) {
                 chara.elements.ModBase(el.id, 1);
             }
             chara.elements.SetBase(el.id, lv, potential);
@@ -208,8 +192,7 @@ public class CharaSkillTab : YKLayout<Chara>
     private ElementList? _mutationElementList;
     private ElementList? _etherElementList;
 
-    private void RefreshElementList()
-    {
+    private void RefreshElementList() {
         _attributeElementList?.Refresh();
         _generalElementList?.Refresh();
         _craftElementList?.Refresh();

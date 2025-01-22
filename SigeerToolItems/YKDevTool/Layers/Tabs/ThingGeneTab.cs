@@ -4,16 +4,13 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class ThingGeneTab : YKLayout<Thing>
-{
-    public override void OnLayout()
-    {
+public class ThingGeneTab : YKLayout<Thing> {
+    public override void OnLayout() {
         var thing = Layer.Data;
         var headerWidth = 120;
         Header(thing.GetName(NameStyle.Full));
 
-        if (thing == null || thing.c_DNA == null)
-        {
+        if (thing == null || thing.c_DNA == null) {
             Text("DNAに対応していません"._("Not compatible with DNA")).WithWidth(300);
             return;
         }
@@ -35,8 +32,7 @@ public class ThingGeneTab : YKLayout<Thing>
             var typeList = new List<DNA.Type> { DNA.Type.Default, DNA.Type.Superior, DNA.Type.Inferior };
             var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
             group.HeaderSmall("タイプ"._("Type")).WithMinWidth(headerWidth);
-            group.Dropdown([.. typeText], (i) =>
-            {
+            group.Dropdown([.. typeText], (i) => {
                 thing.c_DNA.type = typeList[i];
             }, (int)(thing.blessedState + 2)).WithWidth(150);
         }
@@ -60,8 +56,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("能力"._("Attribute")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(attributeList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, attributeList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -72,8 +67,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("スキル"._("Skill")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(skillList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, skillList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -84,8 +78,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("エンチャント"._("Enchant")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(enchantList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, enchantList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -96,8 +89,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("魔法"._("Spell")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(spellList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, spellList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -108,8 +100,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("耐性"._("Resist")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(resistList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, resistList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -120,8 +111,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("その他"._("Others")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(otherList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, otherList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -132,8 +122,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("フィート"._("Feat")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(featList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, featList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -144,8 +133,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("スロット"._("Slot")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(slotList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, slotList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -156,8 +144,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("変異"._("Mutation")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(mutationtList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, mutationtList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -168,8 +155,7 @@ public class ThingGeneTab : YKLayout<Thing>
             group.HeaderSmall("エーテル"._("Ether")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(etherList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 ApplyGene(thing, etherList[dropdown.value], baseInput.Num);
                 RefreshGeneList();
             });
@@ -180,11 +166,9 @@ public class ThingGeneTab : YKLayout<Thing>
             Header("DNA");
             _geneList = Create<GeneList>();
             _geneList.Thing = thing;
-            _geneList.OnList = (m) =>
-            {
+            _geneList.OnList = (m) => {
                 var genes = new List<GeneList.Gene> { };
-                for (var i = 0; i < thing.c_DNA.vals.Count; i += 2)
-                {
+                for (var i = 0; i < thing.c_DNA.vals.Count; i += 2) {
                     var id = thing.c_DNA.vals[i];
                     var lv = thing.c_DNA.vals[i + 1];
                     genes.Add(new GeneList.Gene { Id = id, Lv = lv });
@@ -198,20 +182,16 @@ public class ThingGeneTab : YKLayout<Thing>
         RefreshGeneList();
     }
 
-    private void ApplyGene(Thing thing, SourceElement.Row el, int lv)
-    {
+    private void ApplyGene(Thing thing, SourceElement.Row el, int lv) {
         var ok = false;
-        for (var i = 0; i < thing.c_DNA.vals.Count; i += 2)
-        {
-            if (thing.c_DNA.vals[i] == el.id)
-            {
+        for (var i = 0; i < thing.c_DNA.vals.Count; i += 2) {
+            if (thing.c_DNA.vals[i] == el.id) {
                 thing.c_DNA.vals[i + 1] = lv;
                 ok = true;
                 break;
             }
         }
-        if (!ok)
-        {
+        if (!ok) {
             thing.c_DNA.vals.Add(el.id);
             thing.c_DNA.vals.Add(lv);
         }
@@ -219,8 +199,7 @@ public class ThingGeneTab : YKLayout<Thing>
 
     private GeneList? _geneList;
 
-    private void RefreshGeneList()
-    {
+    private void RefreshGeneList() {
         _geneList?.Refresh();
     }
 }

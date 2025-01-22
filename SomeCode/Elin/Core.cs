@@ -119,15 +119,15 @@ public class Core : BaseCore
 			}
 			switch (text)
 			{
-			case "DEV":
-				releaseMode = ReleaseMode.Debug;
-				break;
-			case "UPDATE_LANG":
-				Lang.runUpdate = true;
-				break;
-			case "NOMOD":
-				ModManager.disableMod = true;
-				break;
+				case "DEV":
+					releaseMode = ReleaseMode.Debug;
+					break;
+				case "UPDATE_LANG":
+					Lang.runUpdate = true;
+					break;
+				case "NOMOD":
+					ModManager.disableMod = true;
+					break;
 			}
 		}
 		NewsList.dict = null;
@@ -169,7 +169,7 @@ public class Core : BaseCore
 		ui.OnCoreStart();
 		BaseCore.BlockInput = () => ui.IsDragging;
 		CommandRegistry.assemblies.Add(typeof(Core).Assembly);
-		SoundData.EditorPlaySpatial = delegate(SoundData a)
+		SoundData.EditorPlaySpatial = delegate (SoundData a)
 		{
 			game.player.chara.PlaySound(a.name);
 		};
@@ -794,18 +794,18 @@ public class Core : BaseCore
 			if (ini.Global["agreed_usercontens_usage_terms"] != "yes")
 			{
 				string[] items = new string[3] { "readTerms", "agree", "disagree" };
-				Dialog.List("dialogTermsOfUseUGC".lang(), items, (string j) => j, delegate(int c, string d)
+				Dialog.List("dialogTermsOfUseUGC".lang(), items, (string j) => j, delegate (int c, string d)
 				{
 					switch (c)
 					{
-					case 0:
-						LayerHelp.Toggle("custom", "terms2");
-						return false;
-					case 1:
-						ini.Global["agreed_usercontens_usage_terms"] = "yes";
-						SaveElinIni(ini);
-						action();
-						break;
+						case 0:
+							LayerHelp.Toggle("custom", "terms2");
+							return false;
+						case 1:
+							ini.Global["agreed_usercontens_usage_terms"] = "yes";
+							SaveElinIni(ini);
+							action();
+							break;
 					}
 					return true;
 				}, canCancel: true);
@@ -821,18 +821,18 @@ public class Core : BaseCore
 		if (ini.Global["agreed_usercontents_upload_terms"] != "yes")
 		{
 			string[] items = new string[3] { "readTerms", "agree", "disagree" };
-			Dialog.List("dialogTermsOfUse".lang(), items, (string j) => j, delegate(int c, string d)
+			Dialog.List("dialogTermsOfUse".lang(), items, (string j) => j, delegate (int c, string d)
 			{
 				switch (c)
 				{
-				case 0:
-					LayerHelp.Toggle("custom", "terms");
-					return false;
-				case 1:
-					ini.Global["agreed_usercontents_upload_terms"] = "yes";
-					SaveElinIni(ini);
-					action();
-					break;
+					case 0:
+						LayerHelp.Toggle("custom", "terms");
+						return false;
+					case 1:
+						ini.Global["agreed_usercontents_upload_terms"] = "yes";
+						SaveElinIni(ini);
+						action();
+						break;
 				}
 				return true;
 			}, canCancel: true);

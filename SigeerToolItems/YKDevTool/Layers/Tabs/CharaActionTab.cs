@@ -4,10 +4,8 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class CharaActionTab : YKLayout<Chara>
-{
-    public override void OnLayout()
-    {
+public class CharaActionTab : YKLayout<Chara> {
+    public override void OnLayout() {
         var chara = Layer.Data;
         var headerWidth = 120;
         Header(chara.GetName(NameStyle.Full));
@@ -20,8 +18,7 @@ public class CharaActionTab : YKLayout<Chara>
             group.HeaderSmall("アクション"._("Action")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(actList.Select(x => x.FullName).ToList()).WithWidth(150);
             var toggle = group.Toggle("パーティー"._("Party")).WithWidth(150);
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 var act = actList[dropdown.value];
                 chara.ability.Add(act.id, 50, toggle.isChecked);
                 RefreshActions();
@@ -41,8 +38,7 @@ public class CharaActionTab : YKLayout<Chara>
 
     private CharaAbilityList? _abilityList;
 
-    private void RefreshActions()
-    {
+    private void RefreshActions() {
         _abilityList?.Refresh();
     }
 }

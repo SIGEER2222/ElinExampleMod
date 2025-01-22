@@ -40,9 +40,9 @@ public class Steam : MonoBehaviour
 	{
 		return id switch
 		{
-			ID_DLC.CursedManor => true, 
-			ID_DLC.BackerReward => EClass.core.config.HasBackerRewardCode(), 
-			_ => EClass.core.config.HasBackerRewardCode(), 
+			ID_DLC.CursedManor => true,
+			ID_DLC.BackerReward => EClass.core.config.HasBackerRewardCode(),
+			_ => EClass.core.config.HasBackerRewardCode(),
 		};
 	}
 
@@ -116,7 +116,7 @@ public class Steam : MonoBehaviour
 				key = "id",
 				value = baseModPackage.id
 			}
-		}, delegate(WorkshopItemDataCreateStatus result)
+		}, delegate (WorkshopItemDataCreateStatus result)
 		{
 			LayerProgress.completed = true;
 			if (result.hasError)
@@ -139,7 +139,7 @@ public class Steam : MonoBehaviour
 		BaseModPackage p = currentPackage;
 		WorkshopItemData workshopItemData = CreateItemData(p);
 		workshopItemData.publishedFileId = fileId;
-		workshopItemData.Update(delegate(WorkshopItemDataUpdateStatus result)
+		workshopItemData.Update(delegate (WorkshopItemDataUpdateStatus result)
 		{
 			LayerProgress.completed = true;
 			if (result.hasError)
@@ -172,15 +172,15 @@ public class Steam : MonoBehaviour
 		WorkshopItemData result = workshopItemData;
 		switch (p.visibility)
 		{
-		case "Unlisted":
-			result.visibility = ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityUnlisted;
-			break;
-		case "Private":
-			result.visibility = ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityPrivate;
-			break;
-		case "FriendsOnly":
-			result.visibility = ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityFriendsOnly;
-			break;
+			case "Unlisted":
+				result.visibility = ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityUnlisted;
+				break;
+			case "Private":
+				result.visibility = ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityPrivate;
+				break;
+			case "FriendsOnly":
+				result.visibility = ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityFriendsOnly;
+				break;
 		}
 		Debug.Log(App.Client.Owner.id);
 		Debug.Log(result.appId);

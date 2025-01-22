@@ -24,14 +24,12 @@ bin-release/
 */.vs/*
 .vs/*
 .fake
-DapperTest/BaiAn.db-shm
-DapperTest/BaiAn.db-wal
+
 **/Generated/**
-**/BaiAn.db-shm
-**/BaiAn.db-wal
 
 **/TestResults/**
 **/.cr/**
 **/nupkgs**
 
 **/Mark/**
+**/SigeerTools/**

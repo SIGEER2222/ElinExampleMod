@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ModName>AutoExplorerEx</ModName>
+  </PropertyGroup>
+  <Import Project="../SharedConfig.props" />
+</Project>

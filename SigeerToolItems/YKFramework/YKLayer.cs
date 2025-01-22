@@ -3,12 +3,10 @@ using UnityEngine.UI;
 
 namespace YKF;
 
-public abstract class YKLayer<T> : ELayer
-{
+public abstract class YKLayer<T> : ELayer {
     public virtual void OnLayout() { }
 
-    public L CreateTab<L>(string idLang, string id) where L : YKLayout<T>
-    {
+    public L CreateTab<L>(string idLang, string id) where L : YKLayout<T> {
         var parent = Window.Find("Content View");
         var rect = parent.gameObject.GetComponent<RectTransform>();
 
@@ -55,45 +53,35 @@ public abstract class YKLayer<T> : ELayer
 
     public virtual Rect Bound { get; } = new Rect(0, 0, 640, 480);
 
-    public Window Window
-    {
-        get
-        {
+    public Window Window {
+        get {
             return windows[0];
         }
     }
 
     protected T? _data;
-    public T Data
-    {
-        get
-        {
+    public T Data {
+        get {
             return _data!;
         }
-        set
-        {
+        set {
             _data = value;
         }
     }
 
-    public override void OnBeforeAddLayer()
-    {
+    public override void OnBeforeAddLayer() {
         this.option.rebuildLayout = true;
     }
 
-    public override void OnAfterAddLayer()
-    {
-        foreach (var w in this.windows)
-        {
+    public override void OnAfterAddLayer() {
+        foreach (var w in this.windows) {
             var r = w.Rect();
             w.RectTransform.localPosition = new Vector3(w.setting.bound.x, w.setting.bound.y, 0);
         }
     }
 
-    public override bool blockWidgetClick
-    {
-        get
-        {
+    public override bool blockWidgetClick {
+        get {
             return false;
         }
     }

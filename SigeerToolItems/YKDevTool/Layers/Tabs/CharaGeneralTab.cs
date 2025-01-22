@@ -3,10 +3,8 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class CharaGeneralTab : YKLayout<Chara>
-{
-    public override void OnLayout()
-    {
+public class CharaGeneralTab : YKLayout<Chara> {
+    public override void OnLayout() {
         var chara = Layer.Data;
         var headerWidth = 120;
         Header(chara.GetName(NameStyle.Full));
@@ -53,8 +51,7 @@ public class CharaGeneralTab : YKLayout<Chara>
             {
                 var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
                 group.HeaderSmall("種族"._("Race")).WithMinWidth(headerWidth);
-                group.Dropdown(EClass.sources.races.rows.Select(x => x.GetName()).ToList(), (i) =>
-                {
+                group.Dropdown(EClass.sources.races.rows.Select(x => x.GetName()).ToList(), (i) => {
                     chara.ChangeRace(EClass.sources.races.rows[i].id);
                 }, EClass.sources.races.rows.FindIndex((r) => r.id == chara.race.id)).WithWidth(150);
             }
@@ -62,14 +59,12 @@ public class CharaGeneralTab : YKLayout<Chara>
             {
                 var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
                 group.HeaderSmall("職業"._("Job")).WithMinWidth(headerWidth);
-                group.Dropdown(EClass.sources.jobs.rows.Select(x => x.GetName()).ToList(), (i) =>
-                {
+                group.Dropdown(EClass.sources.jobs.rows.Select(x => x.GetName()).ToList(), (i) => {
                     chara.ChangeRace(EClass.sources.jobs.rows[i].id);
                 }, EClass.sources.jobs.rows.FindIndex((r) => r.id == chara.job.id)).WithWidth(150);
             }
         }
-        if (!chara.IsPC)
-        {
+        if (!chara.IsPC) {
             // Lv
             {
                 var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
@@ -80,8 +75,7 @@ public class CharaGeneralTab : YKLayout<Chara>
             {
                 var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
                 group.HeaderSmall("戦術"._("Tactics")).WithMinWidth(headerWidth);
-                group.Dropdown(EClass.sources.tactics.rows.Select(x => x.GetName()).ToList(), (i) =>
-                {
+                group.Dropdown(EClass.sources.tactics.rows.Select(x => x.GetName()).ToList(), (i) => {
                     chara.tactics.source = EClass.sources.tactics.rows[i];
                 }, EClass.sources.tactics.rows.FindIndex((j) => j.id == chara.tactics.source.id)).WithWidth(150);
             }
@@ -90,12 +84,10 @@ public class CharaGeneralTab : YKLayout<Chara>
         {
             var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
             group.HeaderSmall("信仰"._("Faith")).WithMinWidth(headerWidth);
-            group.Dropdown(EClass.sources.religions.rows.Select(x => x.GetName()).ToList(), (i) =>
-            {
+            group.Dropdown(EClass.sources.religions.rows.Select(x => x.GetName()).ToList(), (i) => {
                 chara.SetFaith(EClass.sources.religions.rows[i].id);
             }, EClass.sources.religions.rows.FindIndex((j) => j.id == chara.faith.id)).WithWidth(150);
-            group.InputText(chara.elements.GetElement(85)?.vBase.ToString() ?? "0", (i) =>
-            {
+            group.InputText(chara.elements.GetElement(85)?.vBase.ToString() ?? "0", (i) => {
                 chara.elements.SetBase(85, i, 0);
                 chara.RefreshFaithElement();
             });
@@ -106,14 +98,11 @@ public class CharaGeneralTab : YKLayout<Chara>
             group.HeaderSmall("専門+"._("Expert+")).WithMinWidth(headerWidth);
             var religions = new List<string> { "None" };
             religions.AddRange(Element.ListAttackElements.Select(x => x.GetName()));
-            group.Dropdown(religions, (i) =>
-            {
-                if (i == 0)
-                {
+            group.Dropdown(religions, (i) => {
+                if (i == 0) {
                     chara.SetMainElement(0, 0, false);
                 }
-                else
-                {
+                else {
                     chara.SetMainElement(Element.ListAttackElements[i - 1]?.id ?? 0);
                 }
             }, EClass.sources.religions.rows.FindIndex((j) => j.id == chara.faith.id)).WithWidth(150);
@@ -123,8 +112,7 @@ public class CharaGeneralTab : YKLayout<Chara>
             {
                 var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
                 group.HeaderSmall("趣味"._("Hobby")).WithMinWidth(headerWidth);
-                group.Dropdown(EClass.sources.hobbies.listHobbies.Select(x => x.GetName()).ToList(), (i) =>
-                {
+                group.Dropdown(EClass.sources.hobbies.listHobbies.Select(x => x.GetName()).ToList(), (i) => {
                     chara._hobbies[0] = EClass.sources.hobbies.listHobbies[i].id;
                 }, EClass.sources.hobbies.listHobbies.FindIndex((j) => j.id == chara._hobbies[0])).WithWidth(150);
             }
@@ -132,15 +120,13 @@ public class CharaGeneralTab : YKLayout<Chara>
             {
                 var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
                 group.HeaderSmall("仕事"._("Works")).WithMinWidth(headerWidth);
-                group.Dropdown(EClass.sources.hobbies.listWorks.Select(x => x.GetName()).ToList(), (i) =>
-                {
+                group.Dropdown(EClass.sources.hobbies.listWorks.Select(x => x.GetName()).ToList(), (i) => {
                     chara._works[0] = EClass.sources.hobbies.listWorks[i].id;
                 }, EClass.sources.hobbies.listWorks.FindIndex((j) => j.id == chara._works[0])).WithWidth(150);
             }
         }
         // カルマ
-        if (chara.IsPC)
-        {
+        if (chara.IsPC) {
             var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
             group.HeaderSmall("カルマ"._("Karma")).WithMinWidth(headerWidth);
             var num = group.InputText("").WithPlaceholder("加算、減算"._("plus, minus"));
@@ -154,15 +140,13 @@ public class CharaGeneralTab : YKLayout<Chara>
             group.Button("取得"._("Gain"), () => { EClass.player.ModFame(num.Num); });
         }
         // 貢献
-        if (chara.IsPC)
-        {
+        if (chara.IsPC) {
             var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
             group.HeaderSmall("ギルド貢献"._("Contribution")).WithMinWidth(headerWidth);
             var num = group.InputText("").WithPlaceholder("加算、減算"._("plus, minus"));
             group.Button("取得"._("Gain"), () => { Guild.GetCurrentGuild()?.AddContribution(num.Num); });
         }
-        else
-        {
+        else {
             // 友好度
             var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
             group.HeaderSmall("友好度"._("Friendship")).WithMinWidth(headerWidth);
@@ -174,41 +158,35 @@ public class CharaGeneralTab : YKLayout<Chara>
             group.HeaderSmall("フィートP"._("Feat P")).WithMinWidth(headerWidth);
             var num = group.InputText(chara.feat.ToString(), (i) => { chara.feat = i; });
         }
-        if (!chara.IsPC)
-        {
+        if (!chara.IsPC) {
             // トレジャー
             Header("トレジャー"._("Treasure"));
             {
                 var group = Horizontal();
-                group.Button("カード"._("Card"), () =>
-                {
+                group.Button("カード"._("Card"), () => {
                     var r = ThingGen.Create("figure3");
                     r.MakeRefFrom(chara.source.id);
                     EClass._zone.TryAddThing(r, EClass.pc.pos);
                 });
-                group.Button("剥製"._("Stuffed"), () =>
-                {
+                group.Button("剥製"._("Stuffed"), () => {
                     var r = ThingGen.Create("figure");
                     r.MakeFigureFrom(chara.source.id);
                     EClass._zone.TryAddThing(r, EClass.pc.pos);
                 });
-                group.Button("有精卵"._("Fertilized eggs"), () =>
-                {
+                group.Button("有精卵"._("Fertilized eggs"), () => {
                     var t = ThingGen.Create("egg_fertilized").SetNum(1);
                     t.MakeFoodFrom(chara);
                     t.c_idMainElement = chara.c_idMainElement;
                     EClass._zone.TryAddThing(t, EClass.pc.pos);
                 });
-                group.Button("ミルク"._("Milk"), () =>
-                {
+                group.Button("ミルク"._("Milk"), () => {
                     var t = ThingGen.Create("milk").SetNum(1);
                     t.MakeRefFrom(chara);
                     var num2 = chara.LV - chara.source.LV;
                     if (num2 >= 10) { t.SetEncLv(num2 / 10); }
                     EClass._zone.TryAddThing(t, EClass.pc.pos);
                 });
-                group.Button("クローン"._("Clone"), () =>
-                {
+                group.Button("クローン"._("Clone"), () => {
                     var c = chara.Duplicate();
                     EClass._zone.AddCard(c, EClass.pc.pos);
                     c.MakePartyMemeber();
@@ -221,8 +199,7 @@ public class CharaGeneralTab : YKLayout<Chara>
                 var typelist = new DNA.Type[] { DNA.Type.Default, DNA.Type.Superior, DNA.Type.Inferior, DNA.Type.Brain };
                 var typenames = new List<string> { "普通"._("Normal"), "優性"._("Superior"), "劣性"._("Inferior"), "脳"._("Brain") };
                 var dropdown = group.Dropdown(typenames);
-                group.Button("生成"._("Generate"), () =>
-                {
+                group.Button("生成"._("Generate"), () => {
                     var t = DNA.GenerateGene(chara, typelist[dropdown.value]);
                     EClass._zone.TryAddThing(t, EClass.pc.pos);
                 });

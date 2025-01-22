@@ -4,16 +4,13 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class ThingSocketTab : YKLayout<Thing>
-{
-    public override void OnLayout()
-    {
+public class ThingSocketTab : YKLayout<Thing> {
+    public override void OnLayout() {
         var thing = Layer.Data;
         var headerWidth = 120;
         Header(thing.GetName(NameStyle.Full));
 
-        if (thing.trait is not TraitToolRange)
-        {
+        if (thing.trait is not TraitToolRange) {
             Text("ソケットに対応していません"._("Sockets are not supported")).WithWidth(300);
             return;
         }
@@ -23,15 +20,12 @@ public class ThingSocketTab : YKLayout<Thing>
         {
             var group = Horizontal().WithFitMode(ContentSizeFitter.FitMode.PreferredSize).WithPivot(0f, 0.5f);
             group.HeaderSmall("容量"._("Capacity")).WithMinWidth(headerWidth);
-            group.Button("追加"._("Add"), () =>
-            {
+            group.Button("追加"._("Add"), () => {
                 thing.AddSocket();
                 RefreshSocketList();
             }).WithWidth(120);
-            group.Button("空っぽ"._("Empty"), () =>
-            {
-                for (var i = 0; i < thing.sockets.Count; i++)
-                {
+            group.Button("空っぽ"._("Empty"), () => {
+                for (var i = 0; i < thing.sockets.Count; i++) {
                     var sock = thing.sockets[i];
                     var id = sock / 100;
                     var lv = sock % 100;
@@ -41,10 +35,8 @@ public class ThingSocketTab : YKLayout<Thing>
                 }
                 RefreshSocketList();
             }).WithWidth(120);
-            group.Button("すべて削除"._("Remove All"), () =>
-            {
-                for (var i = 0; i < thing.sockets.Count; i++)
-                {
+            group.Button("すべて削除"._("Remove All"), () => {
+                for (var i = 0; i < thing.sockets.Count; i++) {
                     var sock = thing.sockets[i];
                     var id = sock / 100;
                     var lv = sock % 100;
@@ -62,8 +54,7 @@ public class ThingSocketTab : YKLayout<Thing>
             group.HeaderSmall("改造"._("Mod")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(skillList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 var el = skillList[dropdown.value];
                 var lv = Math.Max(baseInput.Num, 1);
                 thing.ApplySocket(el.id, lv);
@@ -85,8 +76,7 @@ public class ThingSocketTab : YKLayout<Thing>
 
     private SocketList? _socketList;
 
-    private void RefreshSocketList()
-    {
+    private void RefreshSocketList() {
         _socketList?.Refresh();
     }
 }

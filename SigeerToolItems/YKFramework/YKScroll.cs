@@ -3,10 +3,8 @@ using UnityEngine.UI;
 
 namespace YKF;
 
-public class YKScroll : YKLayout
-{
-    public override void OnLayout()
-    {
+public class YKScroll : YKLayout {
+    public override void OnLayout() {
         _scrollRect = YK.GetResource<ScrollRect>("Scrollview parchment with Header");
         var rect = _scrollRect.Rect();
         rect.SetParent(transform);
@@ -38,26 +36,22 @@ public class YKScroll : YKLayout
     }
 
     protected ScrollRect? _scrollRect;
-    public ScrollRect ScrollRect
-    {
+    public ScrollRect ScrollRect {
         get { return _scrollRect!; }
     }
 
     protected RectTransform? _contentTransform;
-    public RectTransform ContentTransform
-    {
+    public RectTransform ContentTransform {
         get { return _contentTransform!; }
     }
 
     protected VerticalLayoutGroup? _layout;
-    public VerticalLayoutGroup Layout
-    {
+    public VerticalLayoutGroup Layout {
         get { return _layout!; }
     }
 
     protected ContentSizeFitter? _fitter;
-    public ContentSizeFitter Fitter
-    {
+    public ContentSizeFitter Fitter {
         get { return _fitter!; }
     }
 }

@@ -4,10 +4,8 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class CharaSpellTab : YKLayout<Chara>
-{
-    public override void OnLayout()
-    {
+public class CharaSpellTab : YKLayout<Chara> {
+    public override void OnLayout() {
         var chara = Layer.Data;
         var headerWidth = 120;
         Header(chara.GetName(NameStyle.Full));
@@ -21,8 +19,7 @@ public class CharaSpellTab : YKLayout<Chara>
             var dropdown = group.Dropdown(spellList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("回数"._("Count"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(chara, spellList[dropdown.value], baseInput.Num, potentialInput.Num);
                 RefreshElementList();
             });
@@ -33,8 +30,7 @@ public class CharaSpellTab : YKLayout<Chara>
             group.HeaderSmall("経験値"._("Exp")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(spellList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var expInput = group.InputText("").WithPlaceholder("加算、減算"._("plus, minus"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 chara.ModExp(spellList[dropdown.value].id, expInput.Num);
                 RefreshElementList();
             });
@@ -51,17 +47,13 @@ public class CharaSpellTab : YKLayout<Chara>
         RefreshElementList();
     }
 
-    private void GainElement(Chara chara, SourceElement.Row el, int lv, int potential = 0)
-    {
-        if (lv == 0)
-        {
+    private void GainElement(Chara chara, SourceElement.Row el, int lv, int potential = 0) {
+        if (lv == 0) {
             chara.elements.Remove(el.id);
         }
-        else
-        {
+        else {
             var element = chara.elements.GetOrCreateElement(el.id);
-            if (element.ValueWithoutLink == 0)
-            {
+            if (element.ValueWithoutLink == 0) {
                 chara.elements.ModBase(el.id, 1);
             }
             chara.elements.SetBase(el.id, lv, potential);
@@ -70,8 +62,7 @@ public class CharaSpellTab : YKLayout<Chara>
 
     private ElementList? _spellElementList;
 
-    private void RefreshElementList()
-    {
+    private void RefreshElementList() {
         _spellElementList?.Refresh();
     }
 }

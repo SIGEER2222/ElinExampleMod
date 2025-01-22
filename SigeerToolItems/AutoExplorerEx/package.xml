@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Meta>
-	<title>显示更多信息GanExtendDisplay</title>
-	<id>GanExtendDisplay</id>
+	<title>AutoExplorerEx</title>
+	<id>AutoExplorerEx</id>
 	<author>Sigeer</author>
 	<loadPriority>1</loadPriority>
 	<description>
-		显示更多的信息
+		用于显示获得的经验值
 	</description>
 	<tags>Cheat,Item</tags>
 	<version>1.0.0</version>

@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <OutputType>Library</OutputType>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SteamPath>E:/Program Files (x86)/Steam</SteamPath>
+    <ElinPath>$(SteamPath)/steamapps/common/Elin</ElinPath>
+    <GamePath>$(ElinPath)</GamePath>
+    <ManagedPath>$(GamePath)/Elin_Data/Managed</ManagedPath>
+    <BepInExPath>$(GamePath)/BepInEx</BepInExPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(ManagedPath)/UnityEngine*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ElinPath)/BepInEx/core/BepInEx*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ElinPath)/BepInEx/core/0Harmony.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ManagedPath)/Plugins*.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(ManagedPath)/Pluralize.NET.dll">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>$(ManagedPath)/com.rlabrecque.steamworks.net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+
+</Project>

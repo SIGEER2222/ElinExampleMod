@@ -8,7 +8,7 @@ public class ActThrow : ActBaseAttack
 
 	public override bool CanPressRepeat => true;
 
-	public override TargetType TargetTy pe => TargetType.Ground;
+	public override TargetType TargetType => TargetType.Ground;
 
 	public override int PerformDistance => 99;
 

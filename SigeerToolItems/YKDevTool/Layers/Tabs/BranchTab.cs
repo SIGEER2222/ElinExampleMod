@@ -4,28 +4,23 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class BranchTab : YKLayout<object>
-{
+public class BranchTab : YKLayout<object> {
     static readonly SourceElement.Row[] s_sourceElements = [];
     protected FactionBranch _branch = EClass._zone.branch;
 
-    static BranchTab()
-    {
+    static BranchTab() {
         s_sourceElements = EClass.sources.elements.rows.Where((e) => { return e.group == "FACTION" || e.group == "POLICY"; }).ToArray();
     }
 
-    public override void OnLayout()
-    {
-        if (_branch == null)
-        {
+    public override void OnLayout() {
+        if (_branch == null) {
             transform.SetActive(false);
             return;
         }
 
         Header(_branch.owner.Name);
 
-        Button("掃除（掃除や雑用のスキルが必要）"._("Cleaning(required: Cleaning, Chore)"), () =>
-        {
+        Button("掃除（掃除や雑用のスキルが必要）"._("Cleaning(required: Cleaning, Chore)"), () => {
             _branch.AutoClean();
         });
 
@@ -39,8 +34,7 @@ public class BranchTab : YKLayout<object>
                 var group = hgroup.Horizontal();
                 group.HeaderSmall("経験値"._("Exp."));
                 var input = group.InputText("");
-                group.Button("取得"._("Gian"), () =>
-                {
+                group.Button("取得"._("Gian"), () => {
                     _branch.ModExp(input.Num);
                     if (lvInput != null) lvInput.Num = _branch.lv;
                 });
@@ -51,8 +45,7 @@ public class BranchTab : YKLayout<object>
                 var group = hgroup.Horizontal();
                 group.HeaderSmall("Lv");
                 lvInput = group.InputText(_branch.lv.ToString());
-                group.Button("適用"._("Apply"), () =>
-                {
+                group.Button("適用"._("Apply"), () => {
                     _branch.lv = lvInput.Num;
                 });
             }
@@ -66,23 +59,17 @@ public class BranchTab : YKLayout<object>
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
             var potentialInput = group.InputText("").WithPlaceholder("潜在"._("Potential"));
 
-            var button = group.Button("適用"._("Apply"), () =>
-            {
+            var button = group.Button("適用"._("Apply"), () => {
                 var el = s_sourceElements[dropdown.value];
-                if (baseInput.Num == 0)
-                {
+                if (baseInput.Num == 0) {
                     _branch.elements.Remove(el.id);
                 }
-                else
-                {
-                    if (!_branch.elements.Has(el))
-                    {
-                        if (el.group == "POLICY")
-                        {
+                else {
+                    if (!_branch.elements.Has(el)) {
+                        if (el.group == "POLICY") {
                             _branch.policies.AddPolicy(el.id);
                         }
-                        else if (el.category == "landfeat")
-                        {
+                        else if (el.category == "landfeat") {
                             _branch.AddFeat(el.id, baseInput.Num);
                         }
                     }
@@ -118,8 +105,7 @@ public class BranchTab : YKLayout<object>
     private ElementList? _featList;
     private ElementList? _policyList;
 
-    private void RefreshList()
-    {
+    private void RefreshList() {
         _skillList?.Refresh();
         _featList?.Refresh();
         _policyList?.Refresh();

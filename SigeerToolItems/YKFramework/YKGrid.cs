@@ -2,10 +2,8 @@ using UnityEngine.UI;
 
 namespace YKF;
 
-public class YKGrid : YKLayout
-{
-    public override void OnLayout()
-    {
+public class YKGrid : YKLayout {
+    public override void OnLayout() {
         var group = gameObject.AddComponent<GridLayoutGroup>();
         group.childAlignment = UnityEngine.TextAnchor.MiddleLeft;
         group.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
@@ -19,14 +17,12 @@ public class YKGrid : YKLayout
     }
 
     protected GridLayoutGroup? _layout;
-    public GridLayoutGroup Layout
-    {
+    public GridLayoutGroup Layout {
         get { return _layout!; }
     }
 
     protected ContentSizeFitter? _fitter;
-    public ContentSizeFitter Fitter
-    {
+    public ContentSizeFitter Fitter {
         get { return _fitter!; }
     }
 }

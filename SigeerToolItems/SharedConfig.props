@@ -1,10 +1,10 @@
 <Project>
   <!-- 项目的框架信息 -->
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>$(ModName)</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>12</LangVersion>
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
       https://nuget.bepinex.dev/v3/index.json;
@@ -24,8 +24,7 @@
     <BepInExPath>$(GamePath)/BepInEx</BepInExPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
   </PropertyGroup>
 
   <!-- 外部 DLL 的引用 -->
@@ -49,8 +48,6 @@
       <HintPath>$(ManagedPath)/com.rlabrecque.steamworks.net.dll</HintPath>
       <Private>False</Private>
     </Reference>
-
-
   </ItemGroup>
 
   <!-- 额外的引用和包引用 -->

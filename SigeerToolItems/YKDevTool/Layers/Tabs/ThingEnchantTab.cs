@@ -4,10 +4,8 @@ using YKF;
 
 namespace YKDev.Layers.Tabs;
 
-public class ThingEnchantTab : YKLayout<Thing>
-{
-    public override void OnLayout()
-    {
+public class ThingEnchantTab : YKLayout<Thing> {
+    public override void OnLayout() {
         var thing = Layer.Data;
         var headerWidth = 120;
         Header(thing.GetName(NameStyle.Full));
@@ -29,8 +27,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("能力"._("Attribute")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(attributeList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, attributeList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -41,8 +38,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("スキル"._("Skill")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(skillList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, skillList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -53,8 +49,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("エンチャント"._("Enchant")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(enchantList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, enchantList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -65,8 +60,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("耐性"._("Resist")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(resistList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, resistList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -77,8 +71,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("魔法"._("Spell")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(spellList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, spellList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -89,8 +82,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("その他"._("Others")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(otherList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, otherList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -101,8 +93,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("フィート"._("Feat")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(featList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, featList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -113,8 +104,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("スロット"._("Slot")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(slotList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, slotList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -125,8 +115,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("変異"._("Mutation")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(mutationtList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, mutationtList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -137,8 +126,7 @@ public class ThingEnchantTab : YKLayout<Thing>
             group.HeaderSmall("エーテル"._("Ether")).WithMinWidth(headerWidth);
             var dropdown = group.Dropdown(etherList.Select(x => x.GetName()).ToList()).WithWidth(150);
             var baseInput = group.InputText("").WithPlaceholder("ベース"._("Base"));
-            group.Button("取得"._("Gain"), () =>
-            {
+            group.Button("取得"._("Gain"), () => {
                 GainElement(thing, etherList[dropdown.value], baseInput.Num);
                 RefreshElementList();
             });
@@ -200,17 +188,13 @@ public class ThingEnchantTab : YKLayout<Thing>
         }
     }
 
-    private void GainElement(Thing thing, SourceElement.Row el, int lv)
-    {
-        if (lv == 0)
-        {
+    private void GainElement(Thing thing, SourceElement.Row el, int lv) {
+        if (lv == 0) {
             thing.elements.Remove(el.id);
         }
-        else
-        {
+        else {
             var element = thing.elements.GetOrCreateElement(el.id);
-            if (element.ValueWithoutLink == 0)
-            {
+            if (element.ValueWithoutLink == 0) {
                 thing.elements.ModBase(el.id, 1);
             }
             thing.elements.SetBase(el.id, lv);
@@ -228,8 +212,7 @@ public class ThingEnchantTab : YKLayout<Thing>
     private ElementSingleList? _mutationElementList;
     private ElementSingleList? _etherElementList;
 
-    private void RefreshElementList()
-    {
+    private void RefreshElementList() {
         _attributeElementList?.Refresh();
         _skillElementList?.Refresh();
         _enchantElementList?.Refresh();

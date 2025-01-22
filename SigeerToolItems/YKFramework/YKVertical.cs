@@ -2,10 +2,8 @@ using UnityEngine.UI;
 
 namespace YKF;
 
-public class YKVertical : YKLayout
-{
-    public override void OnLayout()
-    {
+public class YKVertical : YKLayout {
+    public override void OnLayout() {
         var group = gameObject.AddComponent<VerticalLayoutGroup>();
         group.childControlHeight = false;
         group.childForceExpandHeight = false;
@@ -21,14 +19,12 @@ public class YKVertical : YKLayout
     }
 
     protected VerticalLayoutGroup? _layout;
-    public VerticalLayoutGroup Layout
-    {
+    public VerticalLayoutGroup Layout {
         get { return _layout!; }
     }
 
     protected ContentSizeFitter? _fitter;
-    public ContentSizeFitter Fitter
-    {
+    public ContentSizeFitter Fitter {
         get { return _fitter!; }
     }
 }

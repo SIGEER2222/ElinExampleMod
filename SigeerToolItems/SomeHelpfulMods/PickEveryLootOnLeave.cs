@@ -1,6 +1,3 @@
-using System.Linq;
-using HarmonyLib;
-
 [HarmonyPatch]
 public class PickEveryLootOnLeave {
 
@@ -15,7 +12,9 @@ public class PickEveryLootOnLeave {
 
         SigeerBaseLoad.Log.LogInfo("roamingThings : " + string.Join(", ", roamingThings));
 
-        Msg.Say("roamingThings : " + string.Join(", ", roamingThings));
+        if (roamingThings.Count > 0) {
+            Msg.Say("roamingThings : " + string.Join(", ", roamingThings));
+        }
 
         foreach (var thing in roamingThings) {
             try {

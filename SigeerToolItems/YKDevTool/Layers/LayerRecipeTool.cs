@@ -3,10 +3,8 @@ using YKF;
 
 namespace YKDev.Layers;
 
-public class LayerRecipeTool : YKLayer<object>
-{
-    public override void OnLayout()
-    {
+public class LayerRecipeTool : YKLayer<object> {
+    public override void OnLayout() {
         CreateTab<Tabs.RecipeSourceTab>("レシピ"._("Recipe"), "yk.recipe.source");
     }
 
